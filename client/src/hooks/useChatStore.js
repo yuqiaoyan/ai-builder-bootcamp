@@ -41,6 +41,20 @@ export function useChatStore() {
     ));
   }
 
+  function appendToken(chatId, token) {
+    setChats(prev => prev.map(c => {
+      if (c.id !== chatId) return c;
+      const messages = [...c.messages];
+      const last = messages[messages.length - 1];
+      if (last?.role === 'assistant') {
+        messages[messages.length - 1] = { ...last, content: last.content + token };
+      } else {
+        messages.push({ role: 'assistant', content: token });
+      }
+      return { ...c, messages };
+    }));
+  }
+
   function deleteChat(id) {
     setChats(prev => prev.filter(c => c.id !== id));
     setActiveChatId(prev => (prev === id ? null : prev));
@@ -48,5 +62,5 @@ export function useChatStore() {
 
   const activeChat = chats.find(c => c.id === activeChatId) || null;
 
-  return { chats, activeChat, activeChatId, setActiveChatId, createChat, addMessage, deleteChat };
+  return { chats, activeChat, activeChatId, setActiveChatId, createChat, addMessage, appendToken, deleteChat };
 }
