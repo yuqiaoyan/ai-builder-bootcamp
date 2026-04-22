@@ -1,6 +1,6 @@
 import '../styles/Sidebar.css';
 
-export default function Sidebar({ onNewChat, onClose, sidebarOpen }) {
+export default function Sidebar({ onNewChat, onClose, sidebarOpen, chats, activeChatId, onSelectChat, onDeleteChat }) {
   return (
     <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
@@ -21,8 +21,23 @@ export default function Sidebar({ onNewChat, onClose, sidebarOpen }) {
       </button>
 
       <div className="sidebar-chat-list">
-        <div className="sidebar-section-label">Recent</div>
-        {/* Chat list items added in Phase 2 */}
+        {chats.length > 0 && <div className="sidebar-section-label">Recent</div>}
+        {chats.map(chat => (
+          <div
+            key={chat.id}
+            className={`chat-item ${chat.id === activeChatId ? 'active' : ''}`}
+            onClick={() => onSelectChat(chat.id)}
+          >
+            <span className="chat-item-title">{chat.title}</span>
+            <button
+              className="chat-delete-btn"
+              onClick={e => { e.stopPropagation(); onDeleteChat(chat.id); }}
+              title="Delete chat"
+            >
+              ×
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

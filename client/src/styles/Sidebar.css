@@ -71,6 +71,56 @@
   font-weight: 500;
 }
 
+.chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-sidebar);
+  cursor: pointer;
+  gap: 4px;
+}
+
+.chat-item:hover {
+  background: var(--bg-sidebar-hover);
+}
+
+.chat-item.active {
+  background: var(--bg-sidebar-active);
+}
+
+.chat-item-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-delete-btn {
+  opacity: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.chat-item:hover .chat-delete-btn {
+  opacity: 1;
+}
+
+.chat-delete-btn:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
 /* Mobile overlay */
 @media (max-width: 768px) {
   .sidebar {
