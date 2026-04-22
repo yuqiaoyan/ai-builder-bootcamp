@@ -2,3 +2,8 @@
 node_modules/
 client/node_modules/
 client/dist/
+.claude/
+Screenshots/
+Claude.md
+Project Memory/
+REPO_README.md
