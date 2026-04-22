@@ -1,0 +1,35 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --sidebar-width: 260px;
+  --bg-main: #ffffff;
+  --bg-sidebar: #f9f9f9;
+  --bg-sidebar-hover: #ececec;
+  --bg-sidebar-active: #e5e5e5;
+  --border-color: #e5e5e5;
+  --text-primary: #0d0d0d;
+  --text-secondary: #6b6b6b;
+  --text-sidebar: #0d0d0d;
+  --input-bg: #f4f4f4;
+  --input-border: #e5e5e5;
+  --user-bubble-bg: #f4f4f4;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg-main);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font);
+}
