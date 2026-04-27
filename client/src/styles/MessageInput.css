@@ -1,0 +1,62 @@
+.input-bar {
+  padding: 12px 16px 8px;
+  background: var(--bg-main);
+  flex-shrink: 0;
+}
+
+.input-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.input-textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  max-height: 200px;
+  overflow-y: auto;
+  outline: none;
+}
+
+.input-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.input-send-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--text-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.input-send-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.input-send-btn:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.input-disclaimer {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 6px;
+}

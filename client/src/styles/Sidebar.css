@@ -20,6 +20,7 @@
 .sidebar-logo {
   width: 28px;
   height: 28px;
+  color: #000;
 }
 
 .sidebar-toggle {
@@ -69,6 +70,35 @@
   color: var(--text-secondary);
   padding: 8px 8px 4px;
   font-weight: 500;
+}
+
+.chat-list-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-sidebar);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-list-item:hover {
+  background: var(--bg-sidebar-hover);
+}
+
+.chat-list-item.active {
+  background: var(--bg-sidebar-active);
+}
+
+.chat-list-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Mobile overlay */

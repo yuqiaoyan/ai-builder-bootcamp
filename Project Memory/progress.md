@@ -21,23 +21,23 @@
 ---
 
 ## Phase 2: Default Screen & Chat Creation
-**Status**: Not Started
+**Status**: Complete
 
 ### Tasks
-- [ ] Build the DefaultScreen component ("What's on your mind today?")
-- [ ] Build the MessageInput component (fixed bottom bar)
-- [ ] Implement "New chat" button in sidebar
-- [ ] Implement chat creation flow (typing a message creates a new chat)
-- [ ] Store new chats in localStorage
-- [ ] Display chat list in sidebar (title from first message)
+- [x] Build the DefaultScreen component ("What's on your mind today?")
+- [x] Build the MessageInput component (fixed bottom bar)
+- [x] Implement "New chat" button in sidebar
+- [x] Implement chat creation flow (typing a message creates a new chat)
+- [x] Store new chats in localStorage
+- [x] Display chat list in sidebar (title from first message)
 
 ### Manual Verification
-- [ ] App loads with the default "What's on your mind today?" screen
-- [ ] Typing a message and pressing Enter creates a new chat
-- [ ] New chat appears in the sidebar with a title based on the first message
-- [ ] Clicking "New chat" clears the main area and shows the default screen
-- [ ] Refreshing the page preserves chats in the sidebar (localStorage)
-- [ ] Chat list is ordered by most recent at top
+- [x] App loads with the default "What's on your mind today?" screen
+- [x] Typing a message and pressing Enter creates a new chat
+- [x] New chat appears in the sidebar with a title based on the first message
+- [x] Clicking "New chat" clears the main area and shows the default screen
+- [x] Refreshing the page preserves chats in the sidebar (localStorage)
+- [x] Chat list is ordered by most recent at top
 
 ---
 
