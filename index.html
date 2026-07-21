@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notes</title>
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --text: #2e2c28;
+    --text-muted: #8a8579;
+    --chip-bg: #ffffff;
+    --chip-border: #e5e1d8;
+    --border: #e5e1d8;
+    --accent: #6b6456;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 48px 40px 140px;
+  }
+
+  .title-input {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--text);
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 18px;
+  }
+
+  .title-input::placeholder {
+    color: #b9b3a3;
+  }
+
+  .chip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--chip-bg);
+    border: 1px solid var(--chip-border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .chip svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .chip-icon-only {
+    padding: 7px;
+  }
+
+  .notes-area {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .notes-area .note-line {
+    min-height: 1.7em;
+  }
+
+  .notes-area .note-line:empty::before {
+    content: attr(data-placeholder);
+    color: #b9b3a3;
+    pointer-events: none;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    pointer-events: none;
+  }
+
+  .ask-bar {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    border: 1px solid var(--chip-border);
+    border-radius: 24px;
+    padding: 14px 20px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .ask-bar svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .save-status {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .save-status.visible {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+  <div class="save-status" id="saveStatus">Saved</div>
+
+  <div class="page">
+    <input
+      id="noteTitle"
+      class="title-input"
+      type="text"
+      placeholder="New note"
+      autocomplete="off"
+    >
+
+    <div class="chip-row">
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Today
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Me
+      </span>
+      <span class="chip chip-icon-only">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+      </span>
+    </div>
+
+    <div
+      id="noteBody"
+      class="notes-area"
+      contenteditable="true"
+    ></div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="ask-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"></path><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      Ask anything
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "granola-demo-note";
+
+    const titleInput = document.getElementById("noteTitle");
+    const bodyInput = document.getElementById("noteBody");
+    const saveStatus = document.getElementById("saveStatus");
+
+    function createLine(text) {
+      const line = document.createElement("div");
+      line.className = "note-line";
+      line.dataset.placeholder = "Write notes";
+      if (text) line.textContent = text;
+      return line;
+    }
+
+    function getLines() {
+      return Array.from(bodyInput.querySelectorAll(".note-line"));
+    }
+
+    function getBodyText() {
+      return getLines().map((line) => line.textContent).join("\n");
+    }
+
+    function setBodyText(text) {
+      bodyInput.innerHTML = "";
+      const lines = (text || "").split("\n");
+      lines.forEach((lineText) => bodyInput.appendChild(createLine(lineText)));
+      if (bodyInput.children.length === 0) {
+        bodyInput.appendChild(createLine(""));
+      }
+    }
+
+    function placeCaretAtStart(el) {
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.setStart(el, 0);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    function loadNote() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        setBodyText("");
+        return;
+      }
+      try {
+        const note = JSON.parse(raw);
+        titleInput.value = note.title || "";
+        setBodyText(note.body || "");
+      } catch (e) {
+        setBodyText("");
+      }
+    }
+
+    let saveTimeout;
+    function saveNote() {
+      const note = {
+        title: titleInput.value,
+        body: getBodyText()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(note));
+
+      saveStatus.textContent = "Saved";
+      saveStatus.classList.add("visible");
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        saveStatus.classList.remove("visible");
+      }, 1200);
+    }
+
+    bodyInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const currentLine = sel.anchorNode.nodeType === 3
+          ? sel.anchorNode.parentElement.closest(".note-line")
+          : sel.anchorNode.closest(".note-line");
+        if (!currentLine) return;
+
+        const range = sel.getRangeAt(0);
+        const afterRange = range.cloneRange();
+        afterRange.selectNodeContents(currentLine);
+        afterRange.setStart(range.endContainer, range.endOffset);
+        const afterText = afterRange.toString();
+
+        const beforeRange = range.cloneRange();
+        beforeRange.selectNodeContents(currentLine);
+        beforeRange.setEnd(range.startContainer, range.startOffset);
+        const beforeText = beforeRange.toString();
+
+        currentLine.textContent = beforeText;
+        const newLine = createLine(afterText);
+        currentLine.after(newLine);
+
+        const target = newLine.firstChild || newLine;
+        placeCaretAtStart(target.nodeType === 3 ? target : newLine);
+      }
+    });
+
+    titleInput.addEventListener("input", saveNote);
+    bodyInput.addEventListener("input", saveNote);
+
+    loadNote();
+  </script>
+
+</body>
+</html>
